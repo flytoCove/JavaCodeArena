@@ -1,0 +1,5 @@
+server:
+  port: 9202
+spring:
+  application:
+    name: user   # 应用名称
