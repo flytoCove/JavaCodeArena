@@ -16,6 +16,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <packaging>pom</packaging>
     <modules>
         <module>modules</module>
+        <module>common</module>
     </modules>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -24,6 +25,9 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <spring-cloud-alibaba.version>2022.0.0.0-RC2</spring-cloud-alibaba.version>
         <spring-cloud.version>2022.0.0</spring-cloud.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <core.version>1.0-SNAPSHOT</core.version>
+        <swagger.version>1.0-SNAPSHOT</swagger.version>
+        <springdoc-openapi.version>2.2.0</springdoc-openapi.version>
     </properties>
     <dependencies>
         <!-- bootstrap 启动器 -->
@@ -31,6 +35,12 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
