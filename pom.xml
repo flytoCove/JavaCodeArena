@@ -26,6 +26,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <spring-cloud.version>2022.0.0</spring-cloud.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <core.version>1.0-SNAPSHOT</core.version>
+        <security.version>1.0-SNAPSHOT</security.version>
         <swagger.version>1.0-SNAPSHOT</swagger.version>
         <springdoc-openapi.version>2.2.0</springdoc-openapi.version>
     </properties>
@@ -68,6 +69,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
