@@ -15,6 +15,7 @@
         <module>core</module>
         <module>swagger</module>
         <module>security</module>
+        <module>redis</module>
     </modules>
 
     <properties>

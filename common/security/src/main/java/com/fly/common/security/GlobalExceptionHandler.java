@@ -3,7 +3,7 @@ package com.fly.common.security;
 import com.fly.common.core.domain.R;
 import com.fly.common.core.enums.ResultCode;
 import jakarta.servlet.http.HttpServletRequest;
-//import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * 全局异常处理器
  */
 @RestControllerAdvice
-//@Slf4j
+@Slf4j
 public class GlobalExceptionHandler
 {
     /**
@@ -20,7 +20,7 @@ public class GlobalExceptionHandler
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public R<?> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e,HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-// log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
+        log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
         return R.fail(ResultCode.ERROR);
     }
     /**
@@ -30,7 +30,7 @@ public class GlobalExceptionHandler
     public R<?> handleRuntimeException(RuntimeException e, HttpServletRequest
             request) {
         String requestURI = request.getRequestURI();
-// log.error("请求地址'{}',发生异常.", requestURI, e);
+        log.error("请求地址'{}',发生异常.", requestURI, e);
         return R.fail(ResultCode.ERROR);
     }
     /**
@@ -39,7 +39,7 @@ public class GlobalExceptionHandler
     @ExceptionHandler(Exception.class)
     public R<?> handleException(Exception e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-// log.error("请求地址'{}',发生异常.", requestURI, e);
+        log.error("请求地址'{}',发生异常.", requestURI, e);
         return R.fail(ResultCode.ERROR);
     }
 }

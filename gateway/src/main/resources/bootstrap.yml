@@ -1,6 +1,6 @@
 spring:
   application:
-    name: system   # 应用名称
+    name: gateway
   profiles:
     active: local
   cloud:
