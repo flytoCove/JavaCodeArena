@@ -1,1 +1,4 @@
-com.fly.common.security.GlobalExceptionHandler
+com.fly.common.security.handler.GlobalExceptionHandler
+com.fly.common.security.service.TokenService
+com.fly.common.security.config.WebMvcConfig
+com.fly.common.security.interceptor.TokenInterceptor

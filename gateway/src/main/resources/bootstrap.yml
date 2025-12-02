@@ -12,3 +12,4 @@ spring:
         namespace: 32cb8bb4-5304-49f6-aea7-cd444ea20192
         server-addr: http://localhost:8848
         file-extension: yaml
+

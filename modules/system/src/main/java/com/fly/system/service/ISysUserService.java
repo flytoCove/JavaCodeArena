@@ -1,8 +1,15 @@
 package com.fly.system.service;
 
 import com.fly.common.core.domain.R;
-import com.fly.system.controller.LoginResult;
+import com.fly.common.core.domain.vo.LoginUserVO;
+import com.fly.system.domain.sysuser.dto.SysUserSaveDTO;
 
 public interface ISysUserService {
-    R<Void> login(String userAccount, String password);
+    R<String> login(String userAccount, String password);
+
+    boolean logout(String token);
+
+    R<LoginUserVO> info(String token);
+
+    int add(SysUserSaveDTO sysUserSaveDTO);
 }

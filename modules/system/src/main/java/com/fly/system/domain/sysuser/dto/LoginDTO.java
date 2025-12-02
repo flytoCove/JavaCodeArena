@@ -1,4 +1,4 @@
-package com.fly.system.domain;
+package com.fly.system.domain.sysuser.dto;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,11 +1,11 @@
-package com.fly.system.domain;
+package com.fly.system.domain.sysuser.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class SysUserSavaDTO {
+public class SysUserSaveDTO {
     private String userAccount;
     private String password;
 }
