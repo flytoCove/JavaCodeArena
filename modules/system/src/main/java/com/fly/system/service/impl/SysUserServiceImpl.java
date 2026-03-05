@@ -2,6 +2,7 @@ package com.fly.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.fly.common.core.domain.LoginUser;
 import com.fly.common.core.domain.R;
 import com.fly.common.core.domain.vo.LoginUserVO;
 import com.fly.common.core.enums.ResultCode;
@@ -37,7 +38,8 @@ public class SysUserServiceImpl implements ISysUserService {
     public R<String> login(String userAccount, String password) {
         // 1.通过账号去数据库查询对应的信息
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        SysUser sysUser = sysUserMapper.selectOne(queryWrapper.select(SysUser::getUserId,SysUser::getPassword)
+        SysUser sysUser = sysUserMapper.selectOne(queryWrapper
+                .select(SysUser::getUserId,SysUser::getPassword,SysUser::getNickName)
                 .eq(SysUser::getUserAccount, userAccount));
         // 2.判断
         // R<Void> loginResult = new R<Void>();
@@ -60,7 +62,8 @@ public class SysUserServiceImpl implements ISysUserService {
 //        loginResult.setMsg(ResultCode.SUCCESS.getMsg());
 //        return loginResult;
 
-        return R.ok(tokenService.createToken(sysUser.getUserId(), secret, UserIdentity.ADMIN.getValue(),"", null));
+        return R.ok(tokenService.createToken(sysUser.getUserId(),
+                secret, UserIdentity.ADMIN.getValue(), sysUser.getNickName(), null));
     }
 
     @Override
@@ -70,7 +73,16 @@ public class SysUserServiceImpl implements ISysUserService {
 
     @Override
     public R<LoginUserVO> info(String token) {
-        return null;
+//        if (StrUtil.isNotEmpty(token) && token.startsWith(HttpConstants.PREFIX)) {
+//            token = token.replaceFirst(HttpConstants.PREFIX, StrUtil.EMPTY);
+//        }
+        LoginUser loginUser = tokenService.getLoginUser(token, secret);
+        if (loginUser == null) {
+            return R.fail();
+        }
+        LoginUserVO loginUserVO = new LoginUserVO();
+        loginUserVO.setNickName(loginUser.getNickName());
+        return R.ok(loginUserVO);
     }
 
     @Override

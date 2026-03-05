@@ -24,8 +24,8 @@ public class TokenInterceptor implements HandlerInterceptor {
     private String secret;  //从哪个服务的配置文件中读取，取决于这个bean对象交给了哪个服务的spring容器进行管理。
 
 //    @Override
-//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        String token = getToken(request);  //请求头中获取token
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String token = getToken(request);  //请求头中获取token
 //
 //        if (StrUtil.isEmpty(token)) {
 //            return true;
@@ -36,8 +36,9 @@ public class TokenInterceptor implements HandlerInterceptor {
 //        ThreadLocalUtil.set(Constants.USER_ID, userId);
 //        ThreadLocalUtil.set(Constants.USER_KEY, userKey);
 //        tokenService.extendToken(claims);
-//        return true;
-//    }
+        tokenService.extendToken(token, secret);
+        return true;
+    }
 //
 //    @Override
 //    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)

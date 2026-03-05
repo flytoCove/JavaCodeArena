@@ -1,7 +1,9 @@
 package com.fly.system.controller;
 
+import com.fly.common.core.constants.HttpConstants;
 import com.fly.common.core.controller.BaseController;
 import com.fly.common.core.domain.R;
+import com.fly.common.core.domain.vo.LoginUserVO;
 import com.fly.system.domain.sysuser.dto.LoginDTO;
 import com.fly.system.domain.sysuser.dto.SysUserSaveDTO;
 import com.fly.system.domain.sysuser.vo.SysUserVO;
@@ -31,6 +33,12 @@ public class SysUserController extends BaseController {
     @ApiResponse(responseCode = "3103", description = "用户或密码错误")
     public R<String> login(@RequestBody LoginDTO loginDTO) {
         return sysUserService.login(loginDTO.getUserAccount(), loginDTO.getPassword());
+    }
+
+    //接口地址：/system/sysUser/info
+    @GetMapping("/info")
+    public R<LoginUserVO> info(@RequestHeader(HttpConstants.AUTHENTICATION) String token) {
+        return sysUserService.info(token);
     }
 
     @PostMapping("/add")
