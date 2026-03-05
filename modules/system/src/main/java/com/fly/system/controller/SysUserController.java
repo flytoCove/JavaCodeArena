@@ -35,6 +35,16 @@ public class SysUserController extends BaseController {
         return sysUserService.login(loginDTO.getUserAccount(), loginDTO.getPassword());
     }
 
+    //接口地址：/system/sysUser/logout
+    @DeleteMapping("/logout")
+    public R<Void> logout(@RequestHeader(HttpConstants.AUTHENTICATION) String token) {
+        return toR(sysUserService.logout(token));
+//        if (logout) {
+//            return R.ok();
+//        }
+//        return R.fail();
+    }
+
     //接口地址：/system/sysUser/info
     @GetMapping("/info")
     public R<LoginUserVO> info(@RequestHeader(HttpConstants.AUTHENTICATION) String token) {

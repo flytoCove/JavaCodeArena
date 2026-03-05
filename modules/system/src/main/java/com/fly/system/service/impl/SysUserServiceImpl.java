@@ -1,7 +1,9 @@
 package com.fly.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.fly.common.core.constants.HttpConstants;
 import com.fly.common.core.domain.LoginUser;
 import com.fly.common.core.domain.R;
 import com.fly.common.core.domain.vo.LoginUserVO;
@@ -18,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
@@ -68,14 +72,17 @@ public class SysUserServiceImpl implements ISysUserService {
 
     @Override
     public boolean logout(String token) {
-        return false;
+        if (StrUtil.isNotEmpty(token) && token.startsWith(HttpConstants.PREFIX)) {
+            token = token.replaceFirst(HttpConstants.PREFIX, StrUtil.EMPTY);
+        }
+        return tokenService.deleteLoginUser(token, secret);
     }
 
     @Override
     public R<LoginUserVO> info(String token) {
-//        if (StrUtil.isNotEmpty(token) && token.startsWith(HttpConstants.PREFIX)) {
-//            token = token.replaceFirst(HttpConstants.PREFIX, StrUtil.EMPTY);
-//        }
+        if (StrUtil.isNotEmpty(token) && token.startsWith(HttpConstants.PREFIX)) {
+            token = token.replaceFirst(HttpConstants.PREFIX, StrUtil.EMPTY);
+        }
         LoginUser loginUser = tokenService.getLoginUser(token, secret);
         if (loginUser == null) {
             return R.fail();

@@ -89,15 +89,16 @@ public class TokenService {
         }
         return redisService.getCacheObject(getTokenKey(userKey), LoginUser.class);
     }
-//
-//
-//    public boolean deleteLoginUser(String token, String secret) {
-//        String userKey = getUserKey(token, secret);
-//        if (userKey == null) {
-//            return false;
-//        }
-//        return redisService.deleteObject(getTokenKey(userKey));
-//    }
+
+
+    public boolean deleteLoginUser(String token, String secret) {
+        String userKey = getUserKey(token, secret);
+        if (userKey == null) {
+            return false;
+        }
+        return redisService.deleteObject(getTokenKey(userKey));
+    }
+
 //
 //    public Long getUserId(Claims claims) {
 //        if (claims == null) return null;
@@ -150,5 +151,7 @@ public class TokenService {
     private String getTokenKey(String userKey) {
         return CacheConstants.LOGIN_TOKEN_KEY + userKey;
     }
+
+
 }
 
