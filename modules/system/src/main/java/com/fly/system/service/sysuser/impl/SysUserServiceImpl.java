@@ -1,4 +1,4 @@
-package com.fly.system.service.impl;
+package com.fly.system.service.sysuser.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
@@ -11,17 +11,15 @@ import com.fly.common.core.enums.ResultCode;
 import com.fly.common.core.enums.UserIdentity;
 import com.fly.common.security.exception.ServiceException;
 import com.fly.common.security.service.TokenService;
-import com.fly.system.domain.SysUser;
+import com.fly.system.domain.sysuser.SysUser;
 import com.fly.system.domain.sysuser.dto.SysUserSaveDTO;
-import com.fly.system.mapper.SysUserMapper;
-import com.fly.system.service.ISysUserService;
+import com.fly.system.mapper.sysuser.SysUserMapper;
+import com.fly.system.service.sysuser.ISysUserService;
 import com.fly.system.utils.BCryptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 

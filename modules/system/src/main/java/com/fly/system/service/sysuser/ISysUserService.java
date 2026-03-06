@@ -1,4 +1,4 @@
-package com.fly.system.service;
+package com.fly.system.service.sysuser;
 
 import com.fly.common.core.domain.R;
 import com.fly.common.core.domain.vo.LoginUserVO;

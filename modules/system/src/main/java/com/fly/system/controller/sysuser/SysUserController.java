@@ -1,4 +1,4 @@
-package com.fly.system.controller;
+package com.fly.system.controller.sysuser;
 
 import com.fly.common.core.constants.HttpConstants;
 import com.fly.common.core.controller.BaseController;
@@ -7,7 +7,7 @@ import com.fly.common.core.domain.vo.LoginUserVO;
 import com.fly.system.domain.sysuser.dto.LoginDTO;
 import com.fly.system.domain.sysuser.dto.SysUserSaveDTO;
 import com.fly.system.domain.sysuser.vo.SysUserVO;
-import com.fly.system.service.ISysUserService;
+import com.fly.system.service.sysuser.ISysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

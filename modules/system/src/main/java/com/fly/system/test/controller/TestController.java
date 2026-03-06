@@ -1,7 +1,7 @@
 package com.fly.system.test.controller;
 
 import com.fly.common.redis.service.RedisService;
-import com.fly.system.domain.SysUser;
+import com.fly.system.domain.sysuser.SysUser;
 import com.fly.system.test.service.ITestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

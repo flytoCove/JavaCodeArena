@@ -1,4 +1,4 @@
-package com.fly.system.domain;
+package com.fly.system.domain.sysuser;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

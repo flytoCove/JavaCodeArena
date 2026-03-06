@@ -36,6 +36,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
         <hutool-all.version>5.8.22</hutool-all.version>
         <springdoc-openapi.version>2.2.0</springdoc-openapi.version>
+        <pagehelper.boot.version>2.0.0</pagehelper.boot.version>
     </properties>
     <dependencies>
         <!-- bootstrap 启动器 -->
