@@ -3,6 +3,7 @@ package com.fly.system.controller.question;
 import com.fly.common.core.controller.BaseController;
 import com.fly.common.core.domain.R;
 import com.fly.common.core.domain.TableDataInfo;
+import com.fly.system.domain.question.dto.QuestionAddDTO;
 import com.fly.system.domain.question.dto.QuestionQueryDTO;
 import com.fly.system.domain.question.vo.QuestionVO;
 import com.fly.system.service.question.IQuestionService;
@@ -31,12 +32,12 @@ public class QuestionController extends BaseController {
         return getTableDataInfo(questionService.list(questionQueryDTO));
     }
 
-//    //  /question/add
-//    @PostMapping("/add")
-//    public R<Void> add(@RequestBody QuestionAddDTO questionAddDTO) {
-//        return toR(questionService.add(questionAddDTO));
-//    }
-//
+    //  /question/add
+    @PostMapping("/add")
+    public R<Void> add(@RequestBody QuestionAddDTO questionAddDTO) {
+        return toR(questionService.add(questionAddDTO));
+    }
+
 //    //  /question/detail
 //    @GetMapping("/detail")
 //    public R<QuestionDetailVO> detail(Long questionId) {
