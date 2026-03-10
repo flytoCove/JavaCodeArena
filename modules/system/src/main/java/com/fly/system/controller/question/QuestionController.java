@@ -4,7 +4,9 @@ import com.fly.common.core.controller.BaseController;
 import com.fly.common.core.domain.R;
 import com.fly.common.core.domain.TableDataInfo;
 import com.fly.system.domain.question.dto.QuestionAddDTO;
+import com.fly.system.domain.question.dto.QuestionEditDTO;
 import com.fly.system.domain.question.dto.QuestionQueryDTO;
+import com.fly.system.domain.question.vo.QuestionDetailVO;
 import com.fly.system.domain.question.vo.QuestionVO;
 import com.fly.system.service.question.IQuestionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,21 +40,21 @@ public class QuestionController extends BaseController {
         return toR(questionService.add(questionAddDTO));
     }
 
-//    //  /question/detail
-//    @GetMapping("/detail")
-//    public R<QuestionDetailVO> detail(Long questionId) {
-//        return R.ok(questionService.detail(questionId));
-//    }
-//
-//    //  /question/edit
-//    @PutMapping("/edit")
-//    public R<Void> edit(@RequestBody QuestionEditDTO questionEditDTO) {
-//        return toR(questionService.edit(questionEditDTO));
-//    }
-//
-//    //  /question/delete
-//    @DeleteMapping("/delete")
-//    public R<Void> delete(Long questionId) {
-//        return toR(questionService.delete(questionId));
-//    }
+    //  /question/detail
+    @GetMapping("/detail")
+    public R<QuestionDetailVO> detail(Long questionId) {
+        return R.ok(questionService.detail(questionId));
+    }
+
+    //  /question/edit
+    @PutMapping("/edit")
+    public R<Void> edit(@RequestBody QuestionEditDTO questionEditDTO) {
+        return toR(questionService.edit(questionEditDTO));
+    }
+
+    //  /question/delete
+    @DeleteMapping("/delete")
+    public R<Void> delete(Long questionId) {
+        return toR(questionService.delete(questionId));
+    }
 }

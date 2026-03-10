@@ -24,8 +24,9 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 //        this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
         this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
        // this.setFieldValByName("updateBy", ThreadLocalUtil.get(Constants.USER_ID, Long.class), metaObject);
+        this.setFieldValByName("updateBy",1L, metaObject);
 //        this.strictUpdateFill(metaObject, "updateBy", Long.class, ThreadLocalUtil.get(Constants.USER_ID, Long.class));
-        this.strictInsertFill(metaObject, "createBy", Long.class, 100L);
+        //this.strictInsertFill(metaObject, "createBy", Long.class, 100L);
 
     }
 }

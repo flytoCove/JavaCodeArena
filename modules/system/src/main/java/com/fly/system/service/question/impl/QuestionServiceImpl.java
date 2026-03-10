@@ -7,7 +7,10 @@ import com.fly.common.core.enums.ResultCode;
 import com.fly.common.security.exception.ServiceException;
 import com.fly.system.domain.question.Question;
 import com.fly.system.domain.question.dto.QuestionAddDTO;
+import com.fly.system.domain.question.dto.QuestionEditDTO;
 import com.fly.system.domain.question.dto.QuestionQueryDTO;
+//import com.fly.system.domain.question.es.QuestionES;
+import com.fly.system.domain.question.vo.QuestionDetailVO;
 import com.fly.system.domain.question.vo.QuestionVO;
 import com.fly.system.mapper.question.QuestionMapper;
 import com.fly.system.service.question.IQuestionService;
@@ -45,9 +48,46 @@ public class QuestionServiceImpl implements IQuestionService {
         return insert > 0;
     }
 
+    @Override
+    public QuestionDetailVO detail(Long questionId) {
+        Question question = questionMapper.selectById(questionId);
+        if (question == null) {
+            throw new ServiceException(ResultCode.FAILED_NOT_EXISTS);
+        }
+        QuestionDetailVO questionDetailVO = new QuestionDetailVO();
+        BeanUtil.copyProperties(question, questionDetailVO);
+        return questionDetailVO;
+    }
+
+    @Override
+    public int edit(QuestionEditDTO questionEditDTO) {
+        Question oldQuestion = questionMapper.selectById(questionEditDTO.getQuestionId());
+        if (oldQuestion == null) {
+            throw new ServiceException(ResultCode.FAILED_NOT_EXISTS);
+        }
+        oldQuestion.setTitle(questionEditDTO.getTitle());
+        oldQuestion.setDifficulty(questionEditDTO.getDifficulty());
+        oldQuestion.setTimeLimit(questionEditDTO.getTimeLimit());
+        oldQuestion.setSpaceLimit(questionEditDTO.getSpaceLimit());
+        oldQuestion.setContent(questionEditDTO.getContent());
+        oldQuestion.setQuestionCase(questionEditDTO.getQuestionCase());
+        oldQuestion.setDefaultCode(questionEditDTO.getDefaultCode());
+        oldQuestion.setMainFuc(questionEditDTO.getMainFuc());
+//        QuestionES questionES = new QuestionES();
+//        BeanUtil.copyProperties(oldQuestion, questionES);
+//        questionRepository.save(questionES);
+        return questionMapper.updateById(oldQuestion);
+    }
+
 
     @Override
     public int delete(Long questionId) {
-        return 0;
+        Question question = questionMapper.selectById(questionId);
+        if (question == null) {
+            throw new ServiceException(ResultCode.FAILED_NOT_EXISTS);
+        }
+//        questionRepository.deleteById(questionId);
+//        questionCacheManager.deleteCache(questionId);
+        return questionMapper.deleteById(questionId);
     }
 }
