@@ -73,13 +73,12 @@ create table tb_exam (
                          start_time datetime not null comment '竞赛开始时间',
                          end_time datetime not null comment '竞赛结束时间',
                          status tinyint not null default '0' comment '是否发布 0：未发布  1：已发布',
---exam_question   这个竞赛下所有的题目都存进来并且用&分隔开   10
                          create_by    bigint unsigned not null  comment '创建人',
                          create_time  datetime not null comment '创建时间',
                          update_by    bigint unsigned  comment '更新人',
                          update_time  datetime comment '更新时间',
                          primary key(exam_id)
-)
+);
 
     题目和竞赛之间是多对一的关系
 题目和竞赛的关系表
@@ -101,7 +100,7 @@ create table tb_exam_question (
                                   update_by    bigint unsigned  comment '更新人',
                                   update_time  datetime comment '更新时间',
                                   primary key(exam_question_id)
-)
+);
 
 
 
