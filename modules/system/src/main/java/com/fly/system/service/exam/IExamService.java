@@ -14,17 +14,17 @@ public interface IExamService {
 
     List<ExamVO> list(ExamQueryDTO examQueryDTO);
 
-//    String add(ExamAddDTO examAddDTO);
-//
-//    boolean questionAdd(ExamQuestAddDTO examQuestAddDTO);
-//
-//    int questionDelete(Long examId, Long questionId);
-//
-//    ExamDetailVO detail(Long examId);
-//
-//    int edit(ExamEditDTO examEditDTO);
-//
-//    int delete(Long examId);
+    String add(ExamAddDTO examAddDTO);
+
+    boolean questionAdd(ExamQuestAddDTO examQuestAddDTO);
+
+    int questionDelete(Long examId, Long questionId);
+
+    ExamDetailVO detail(Long examId);
+
+    int edit(ExamEditDTO examEditDTO);
+
+    int delete(Long examId);
 //
 //    int publish(Long examId);
 //

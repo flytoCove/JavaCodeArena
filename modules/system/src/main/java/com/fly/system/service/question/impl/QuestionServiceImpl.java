@@ -2,7 +2,9 @@ package com.fly.system.service.question.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.fly.common.core.constants.Constants;
 import com.fly.common.core.enums.ResultCode;
 import com.fly.common.security.exception.ServiceException;
 import com.fly.system.domain.question.Question;
@@ -19,7 +21,11 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionServiceImpl implements IQuestionService {
@@ -27,10 +33,25 @@ public class QuestionServiceImpl implements IQuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
+//    @Override
+//    public List<QuestionVO> list(QuestionQueryDTO questionQueryDTO) {
+//        PageHelper.startPage(questionQueryDTO.getPageNum(), questionQueryDTO.getPageSize());
+//        return questionMapper.selectQuestionList(questionQueryDTO);
+//    }
+
     @Override
     public List<QuestionVO> list(QuestionQueryDTO questionQueryDTO) {
+        String excludeIdStr = questionQueryDTO.getExcludeIdStr();
+        if (StrUtil.isNotEmpty(excludeIdStr)) {
+            String[] excludeIdArr = excludeIdStr.split(Constants.SPLIT_SEM);
+            Set<Long> excludeIdSet = Arrays.stream(excludeIdArr)
+                    .map(Long::valueOf)
+                    .collect(Collectors.toSet());
+            questionQueryDTO.setExcludeIdSet(excludeIdSet);
+        }
         PageHelper.startPage(questionQueryDTO.getPageNum(), questionQueryDTO.getPageSize());
-        return questionMapper.selectQuestionList(questionQueryDTO);
+        List<QuestionVO> questionVOList = questionMapper.selectQuestionList(questionQueryDTO);
+        return questionVOList;
     }
 
     @Override

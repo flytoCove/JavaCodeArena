@@ -3,6 +3,8 @@ package com.fly.system.domain.question;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fly.common.core.domain.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import lombok.Setter;
 public class Question extends BaseEntity {
 
     @TableId(type = IdType.ASSIGN_ID)
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long questionId;
 
     private String title;
