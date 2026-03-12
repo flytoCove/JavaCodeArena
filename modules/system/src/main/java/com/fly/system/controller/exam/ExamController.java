@@ -62,14 +62,14 @@ public class ExamController extends BaseController {
         return toR(examService.delete(examId));
     }
 
-//    @PutMapping("/publish")
-//    public R<Void> publish(Long examId) {
-//        return toR(examService.publish(examId));
-//    }
-//
-//    @PutMapping("/cancelPublish")
-//    public R<Void> cancelPublish(Long examId) {
-//        return toR(examService.cancelPublish(examId));
-//    }
+    @PutMapping("/publish")
+    public R<Void> publish(Long examId) {
+        return toR(examService.publish(examId));
+    }
+
+    @PutMapping("/cancelPublish")
+    public R<Void> cancelPublish(Long examId) {
+        return toR(examService.cancelPublish(examId));
+    }
 }
 
