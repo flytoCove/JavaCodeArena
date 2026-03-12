@@ -8,7 +8,7 @@ public class HttpConstants {
     /**
      * 用户端url标识
      */
-    public static final String FRIEND_URL_PREFIX = "user";
+    public static final String FRIEND_URL_PREFIX = "friend";
     /**
      * 令牌自定义标识
      */
