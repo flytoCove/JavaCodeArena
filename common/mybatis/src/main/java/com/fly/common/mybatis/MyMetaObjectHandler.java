@@ -2,7 +2,7 @@ package com.fly.common.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.fly.common.core.constants.Constants;
-import com.fly.common.core.utils.ThreadLocalUtil;
+//import com.fly.common.core.utils.ThreadLocalUtil;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 

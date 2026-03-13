@@ -99,17 +99,17 @@ public class TokenService {
         return redisService.deleteObject(getTokenKey(userKey));
     }
 
-//
-//    public Long getUserId(Claims claims) {
-//        if (claims == null) return null;
-//        return Long.valueOf(JwtUtils.getUserId(claims));  //获取jwt中的key
-//    }
-//
-//    public String getUserKey(Claims claims) {
-//        if (claims == null) return null;
-//        return JwtUtils.getUserKey(claims);  //获取jwt中的key
-//    }
-//
+
+    public Long getUserId(Claims claims) {
+        if (claims == null) return null;
+        return Long.valueOf(JwtUtils.getUserId(claims));  //获取jwt中的key
+    }
+
+    public String getUserKey(Claims claims) {
+        if (claims == null) return null;
+        return JwtUtils.getUserKey(claims);  //获取jwt中的key
+    }
+
     private String getUserKey(String token, String secret) {
         Claims claims;
         try {
@@ -124,22 +124,22 @@ public class TokenService {
         }
         return JwtUtils.getUserKey(claims);
     }
-//
-//    public Claims getClaims(String token, String secret) {
-//        Claims claims;
-//        try {
-//            claims = JwtUtils.parseToken(token, secret); //获取令牌中信息  解析payload中信息  存储着用户唯一标识信息
-//            if (claims == null) {
-//                log.error("解析token：{}, 出现异常", token);
-//                return null;
-//            }
-//        } catch (Exception e) {
-//            log.error("解析token：{}, 出现异常", token, e);
-//            return null;
-//        }
-//        return claims;
-//    }
-//
+
+    public Claims getClaims(String token, String secret) {
+        Claims claims;
+        try {
+            claims = JwtUtils.parseToken(token, secret); //获取令牌中信息  解析payload中信息  存储着用户唯一标识信息
+            if (claims == null) {
+                log.error("解析token：{}, 出现异常", token);
+                return null;
+            }
+        } catch (Exception e) {
+            log.error("解析token：{}, 出现异常", token, e);
+            return null;
+        }
+        return claims;
+    }
+
 //    public void refreshLoginUser(String nickName, String headImage, String userKey) {
 //        String tokenKey = getTokenKey(userKey);
 //        LoginUser loginUser = redisService.getCacheObject(tokenKey, LoginUser.class);

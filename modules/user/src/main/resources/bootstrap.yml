@@ -3,3 +3,14 @@ server:
 spring:
   application:
     name: user   # 应用名称
+  profiles:
+    active: local
+  cloud:
+    nacos:
+      discovery:
+        namespace: 32cb8bb4-5304-49f6-aea7-cd444ea20192
+        server-addr: http://localhost:8848
+      config:
+        namespace: 32cb8bb4-5304-49f6-aea7-cd444ea20192
+        server-addr: http://localhost:8848
+        file-extension: yaml

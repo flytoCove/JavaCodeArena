@@ -1,0 +1,2 @@
+com.fly.common.message.service.AliSmsService
+com.fly.common.message.config.AliSmsConfig

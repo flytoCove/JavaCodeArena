@@ -17,6 +17,7 @@
         <module>security</module>
         <module>redis</module>
         <module>mybatis</module>
+        <module>message</module>
     </modules>
 
     <properties>

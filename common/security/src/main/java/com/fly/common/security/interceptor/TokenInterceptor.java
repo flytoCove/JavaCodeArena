@@ -4,7 +4,7 @@ package com.fly.common.security.interceptor;
 import cn.hutool.core.util.StrUtil;
 import com.fly.common.core.constants.Constants;
 import com.fly.common.core.constants.HttpConstants;
-import com.fly.common.core.utils.ThreadLocalUtil;
+//import com.fly.common.core.utils.ThreadLocalUtil;
 import com.fly.common.security.service.TokenService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
@@ -23,23 +24,23 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Value("${jwt.secret}")
     private String secret;  //从哪个服务的配置文件中读取，取决于这个bean对象交给了哪个服务的spring容器进行管理。
 
-//    @Override
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = getToken(request);  //请求头中获取token
-//
-//        if (StrUtil.isEmpty(token)) {
-//            return true;
-//        }
+        if (StrUtil.isEmpty(token)) {
+            return true;
+        }
 //        Claims claims = tokenService.getClaims(token, secret);
 //        Long userId = tokenService.getUserId(claims);
 //        String userKey = tokenService.getUserKey(claims);
 //        ThreadLocalUtil.set(Constants.USER_ID, userId);
 //        ThreadLocalUtil.set(Constants.USER_KEY, userKey);
 //        tokenService.extendToken(claims);
-        tokenService.extendToken(token, secret);
+
+        tokenService.extendToken(token,secret);
         return true;
     }
-//
+
 //    @Override
 //    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 //            throws Exception {
@@ -55,4 +56,5 @@ public class TokenInterceptor implements HandlerInterceptor {
         return token;
     }
 }
+
 

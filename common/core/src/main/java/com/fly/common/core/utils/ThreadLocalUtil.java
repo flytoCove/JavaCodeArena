@@ -1,13 +1,13 @@
-package com.fly.common.core.utils;
-
-
-import cn.hutool.core.util.StrUtil;
+//package com.fly.common.core.utils;
+//
+//
+//import cn.hutool.core.util.StrUtil;
 //import com.alibaba.ttl.TransmittableThreadLocal;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-public class ThreadLocalUtil {
+//
+//import java.util.Map;
+//import java.util.concurrent.ConcurrentHashMap;
+//
+//public class ThreadLocalUtil {
 //    private static final TransmittableThreadLocal<Map<String, Object>> THREAD_LOCAL = new TransmittableThreadLocal<>();
 //
 //    public static void set(String key, Object value) {
@@ -32,4 +32,4 @@ public class ThreadLocalUtil {
 //    public static void remove() {
 //        THREAD_LOCAL.remove();
 //    }
-}
+//}
