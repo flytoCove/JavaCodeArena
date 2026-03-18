@@ -18,6 +18,7 @@
         <module>redis</module>
         <module>mybatis</module>
         <module>message</module>
+        <module>file</module>
     </modules>
 
     <properties>

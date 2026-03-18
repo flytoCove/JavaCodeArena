@@ -11,9 +11,12 @@ import com.fly.system.domain.question.Question;
 import com.fly.system.domain.question.dto.QuestionAddDTO;
 import com.fly.system.domain.question.dto.QuestionEditDTO;
 import com.fly.system.domain.question.dto.QuestionQueryDTO;
-//import com.fly.system.domain.question.es.QuestionES;
+import com.fly.system.domain.question.es.QuestionES;
+import com.fly.system.domain.question.es.QuestionES;
 import com.fly.system.domain.question.vo.QuestionDetailVO;
 import com.fly.system.domain.question.vo.QuestionVO;
+import com.fly.system.elasticsearch.QuestionRepository;
+import com.fly.system.manager.QuestionCacheManager;
 import com.fly.system.mapper.question.QuestionMapper;
 import com.fly.system.service.question.IQuestionService;
 import com.github.pagehelper.PageHelper;
@@ -32,6 +35,12 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionRepository questionRepository;
+
+    @Autowired
+    private QuestionCacheManager questionCacheManager;
 
 //    @Override
 //    public List<QuestionVO> list(QuestionQueryDTO questionQueryDTO) {
@@ -66,6 +75,13 @@ public class QuestionServiceImpl implements IQuestionService {
         Question question = new Question();
         BeanUtil.copyProperties(questionAddDTO, question);
         int insert = questionMapper.insert(question);
+        if (insert <= 0) {
+            return false;
+        }
+        QuestionES questionES = new QuestionES();
+        BeanUtil.copyProperties(question, questionES);
+        questionRepository.save(questionES);
+        questionCacheManager.addCache(question.getQuestionId());
         return insert > 0;
     }
 
@@ -94,9 +110,9 @@ public class QuestionServiceImpl implements IQuestionService {
         oldQuestion.setQuestionCase(questionEditDTO.getQuestionCase());
         oldQuestion.setDefaultCode(questionEditDTO.getDefaultCode());
         oldQuestion.setMainFuc(questionEditDTO.getMainFuc());
-//        QuestionES questionES = new QuestionES();
-//        BeanUtil.copyProperties(oldQuestion, questionES);
-//        questionRepository.save(questionES);
+        QuestionES questionES = new QuestionES();
+        BeanUtil.copyProperties(oldQuestion, questionES);
+        questionRepository.save(questionES);
         return questionMapper.updateById(oldQuestion);
     }
 
@@ -107,8 +123,8 @@ public class QuestionServiceImpl implements IQuestionService {
         if (question == null) {
             throw new ServiceException(ResultCode.FAILED_NOT_EXISTS);
         }
-//        questionRepository.deleteById(questionId);
-//        questionCacheManager.deleteCache(questionId);
+        questionRepository.deleteById(questionId);
+        questionCacheManager.deleteCache(questionId);
         return questionMapper.deleteById(questionId);
     }
 }

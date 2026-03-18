@@ -17,7 +17,7 @@ import com.fly.system.domain.exam.vo.ExamDetailVO;
 import com.fly.system.domain.exam.vo.ExamVO;
 import com.fly.system.domain.question.Question;
 import com.fly.system.domain.question.vo.QuestionVO;
-//import com.fly.system.manager.ExamCacheManager;
+import com.fly.system.manager.ExamCacheManager;
 import com.fly.system.mapper.exam.ExamMapper;
 import com.fly.system.mapper.exam.ExamQuestionMapper;
 import com.fly.system.mapper.question.QuestionMapper;
@@ -45,10 +45,10 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestio
 
     @Autowired
     private ExamQuestionMapper examQuestionMapper;
-//
-//    @Autowired
-//    private ExamCacheManager examCacheManager;
-//
+
+    @Autowired
+    private ExamCacheManager examCacheManager;
+
     @Override
     public List<ExamVO> list(ExamQueryDTO examQueryDTO) {
         PageHelper.startPage(examQueryDTO.getPageNum(), examQueryDTO.getPageSize());
@@ -217,7 +217,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestio
         exam.setStatus(Constants.TRUE);
 
         //要将新发布的竞赛数据存储到redis   e:t:l  e:d:examId
-        //examCacheManager.addCache(exam);
+        examCacheManager.addCache(exam);
         return examMapper.updateById(exam);
     }
 
@@ -229,7 +229,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestio
             throw new ServiceException(ResultCode.EXAM_IS_FINISH);
         }
         exam.setStatus(Constants.FALSE);
-        //examCacheManager.deleteCache(examId);
+        examCacheManager.deleteCache(examId);
         return examMapper.updateById(exam);
     }
 

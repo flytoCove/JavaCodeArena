@@ -1,0 +1,3 @@
+com.fly.common.file.config.OssClientFactory
+com.fly.common.file.service.OSSService
+com.fly.common.file.config.OSSProperties

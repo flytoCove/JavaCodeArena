@@ -15,9 +15,12 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisService {
+
     @Autowired
     public RedisTemplate redisTemplate;
+
     //************************ 操作key ***************************
+
     /**
      * 判断 key是否存在
      *
@@ -28,10 +31,11 @@ public class RedisService {
         return redisTemplate.hasKey(key);
     }
 
+
     /**
      * 设置有效时间
      *
-     * @param key Redis键
+     * @param key     Redis键
      * @param timeout 超时时间
      * @return true=设置成功；false=设置失败
      */
@@ -42,13 +46,12 @@ public class RedisService {
     /**
      * 设置有效时间
      *
-     * @param key Redis键
+     * @param key     Redis键
      * @param timeout 超时时间
-     * @param unit 时间单位
+     * @param unit    时间单位
      * @return true=设置成功；false=设置失败
      */
-    public boolean expire(final String key, final long timeout, final TimeUnit
-            unit) {
+    public boolean expire(final String key, final long timeout, final TimeUnit unit) {
         return redisTemplate.expire(key, timeout, unit);
     }
 
@@ -73,10 +76,11 @@ public class RedisService {
     }
 
     //************************ 操作String类型 ***************************
+
     /**
      * 缓存基本的对象，Integer、String、实体类等
      *
-     * @param key 缓存的键值
+     * @param key   缓存的键值
      * @param value 缓存的值
      */
     public <T> void setCacheObject(final String key, final T value) {
@@ -86,13 +90,12 @@ public class RedisService {
     /**
      * 缓存基本的对象，Integer、String、实体类等
      *
-     * @param key 缓存的键值
-     * @param value 缓存的值
-     * @param timeout 时间
+     * @param key      缓存的键值
+     * @param value    缓存的值
+     * @param timeout  时间
      * @param timeUnit 时间颗粒度
      */
-    public <T> void setCacheObject(final String key, final T value, final Long
-            timeout, final TimeUnit timeUnit) {
+    public <T> void setCacheObject(final String key, final T value, final Long timeout, final TimeUnit timeUnit) {
         redisTemplate.opsForValue().set(key, value, timeout, timeUnit);
     }
 
@@ -111,6 +114,22 @@ public class RedisService {
         return JSON.parseObject(String.valueOf(t), clazz);
     }
 
+    public <T> List<T> multiGet(final List<String> keyList, Class<T> clazz) {
+        List list = redisTemplate.opsForValue().multiGet(keyList);
+        if (list == null || list.size() <= 0) {
+            return null;
+        }
+        List<T> result = new ArrayList<>();
+        for (Object o : list) {
+            result.add(JSON.parseObject(String.valueOf(o), clazz));
+        }
+        return result;
+    }
+
+    public <K, V> void multiSet(Map<? extends K, ? extends V> map) {
+        redisTemplate.opsForValue().multiSet(map);
+    }
+
     /**
      * 计数加一
      *
@@ -122,6 +141,7 @@ public class RedisService {
     }
 
     //*************** 操作list结构 ****************
+
     /**
      * 获取list中存储数据数量
      *
@@ -142,8 +162,7 @@ public class RedisService {
      * @param <T>
      * @return
      */
-    public <T> List<T> getCacheListByRange(final String key, long start, long
-            end, Class<T> clazz) {
+    public <T> List<T> getCacheListByRange(final String key, long start, long end, Class<T> clazz) {
         List range = redisTemplate.opsForList().range(key, start, end);
         if (CollectionUtils.isEmpty(range)) {
             return null;
@@ -152,11 +171,7 @@ public class RedisService {
     }
 
     /**
-     *  底层使用list结构存储数据(尾插 批量插入)
-     * @param key
-     * @param list
-     * @return
-     * @param <T>
+     * 底层使用list结构存储数据(尾插 批量插入)
      */
     public <T> Long rightPushAll(final String key, Collection<T> list) {
         return redisTemplate.opsForList().rightPushAll(key, list);
@@ -168,6 +183,7 @@ public class RedisService {
     public <T> Long leftPushForList(final String key, T value) {
         return redisTemplate.opsForList().leftPush(key, value);
     }
+
     /**
      * 底层使用list结构,删除指定数据
      */
@@ -175,9 +191,19 @@ public class RedisService {
         return redisTemplate.opsForList().remove(key, 1L, value);
     }
 
+
+    public <T> Long indexOfForList(final String key, T value) {
+        return redisTemplate.opsForList().indexOf(key, value);
+    }
+
+    public <T> T indexForList(final String key, long index, Class<T> clazz) {
+        Object t = redisTemplate.opsForList().index(key, index);
+        return JSON.parseObject(String.valueOf(t), clazz);
+    }
+
+
     //************************ 操作Hash类型 ***************************
-    public <T> T getCacheMapValue(final String key, final String hKey,
-                                  Class<T> clazz) {
+    public <T> T getCacheMapValue(final String key, final String hKey, Class<T> clazz) {
         Object cacheMapValue = redisTemplate.opsForHash().get(key, hKey);
         if (cacheMapValue != null) {
             return JSON.parseObject(String.valueOf(cacheMapValue), clazz);
@@ -185,13 +211,14 @@ public class RedisService {
         return null;
     }
 
+
     /**
      * 获取多个Hash中的数据
      *
-     * @param key Redis键
+     * @param key   Redis键
      * @param hKeys Hash键集合
      * @param clazz 待转换对象类型
-     * @param <T> 泛型
+     * @param <T>   泛型
      * @return Hash对象集合
      */
     public <T> List<T> getMultiCacheMapValue(final String key, final Collection<String> hKeys, Class<T> clazz) {
@@ -200,18 +227,18 @@ public class RedisService {
         for (Object item : list) {
             result.add(JSON.parseObject(JSON.toJSONString(item), clazz));
         }
+
         return result;
     }
 
     /**
      * 往Hash中存入数据
      *
-     * @param key Redis键
-     * @param hKey Hash键
+     * @param key   Redis键
+     * @param hKey  Hash键
      * @param value 值
      */
-    public <T> void setCacheMapValue(final String key, final String hKey, final
-    T value) {
+    public <T> void setCacheMapValue(final String key, final String hKey, final T value) {
         redisTemplate.opsForHash().put(key, hKey, value);
     }
 
@@ -226,7 +253,13 @@ public class RedisService {
             redisTemplate.opsForHash().putAll(key, dataMap);
         }
     }
+
     public Long deleteCacheMapValue(final String key, final String hKey) {
         return redisTemplate.opsForHash().delete(key, hKey);
     }
+
+    public Long incrementHashValue(final String key, final String hKey, long delta) {
+        return redisTemplate.opsForHash().increment(key, hKey, delta);
+    }
 }
+

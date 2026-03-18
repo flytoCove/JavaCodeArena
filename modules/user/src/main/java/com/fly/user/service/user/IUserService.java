@@ -12,14 +12,14 @@ public interface IUserService {
 
     String codeLogin(String phone, String code);
 
-//    boolean logout(String token);
-//
-//    R<LoginUserVO> info(String token);
-//
-//    UserVO detail();
-//
-//    int edit(UserUpdateDTO userUpdateDTO);
-//
-//    int updateHeadImage(String headImage);
+    boolean logout(String token);
+
+    R<LoginUserVO> info(String token);
+
+    UserVO detail();
+
+    int edit(UserUpdateDTO userUpdateDTO);
+
+    int updateHeadImage(String headImage);
 }
 

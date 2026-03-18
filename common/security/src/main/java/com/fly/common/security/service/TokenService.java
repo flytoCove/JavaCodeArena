@@ -56,20 +56,8 @@ public class TokenService {
     //延长token的有效时间，就是延长redis当中从存储的用于用户身份认证的敏感信息的有效时间
     // 操作redis  token  -> 唯一标识
     //在身份认证通过之后才会调用的，并且在请求到达controller层之前  在拦截器中调用
-    public void extendToken(String token,String secret) {
-////        Claims claims;
-////        try {
-////            claims = JwtUtils.parseToken(token, secret); //获取令牌中信息  解析payload中信息  存储着用户唯一标识信息
-////            if (claims == null) {
-////                log.error("解析token：{}, 出现异常", token);
-////                return;
-////            }
-////        } catch (Exception e) {
-////            log.error("解析token：{}, 出现异常", token, e);
-////            return;
-////        }
-//        String userKey = JwtUtils.getUserKey(claims);  //获取jwt中的key
-        String userKey = getUserKey(token,secret);
+    public void extendToken(Claims claims) {
+        String userKey = getUserKey(claims);
         if (userKey == null) {
             return;
         }
@@ -99,6 +87,20 @@ public class TokenService {
         return redisService.deleteObject(getTokenKey(userKey));
     }
 
+    public Long getUserId(String token, String secret) {
+        Claims claims;
+        try {
+            claims = JwtUtils.parseToken(token, secret); //获取令牌中信息  解析payload中信息  存储着用户唯一标识信息
+            if (claims == null) {
+                log.error("解析token：{}, 出现异常", token);
+                return null;
+            }
+        } catch (Exception e) {
+            log.error("解析token：{}, 出现异常", token, e);
+            return null;
+        } //获取jwt中的key
+        return Long.valueOf(JwtUtils.getUserId(claims));
+    }
 
     public Long getUserId(Claims claims) {
         if (claims == null) return null;
@@ -140,13 +142,13 @@ public class TokenService {
         return claims;
     }
 
-//    public void refreshLoginUser(String nickName, String headImage, String userKey) {
-//        String tokenKey = getTokenKey(userKey);
-//        LoginUser loginUser = redisService.getCacheObject(tokenKey, LoginUser.class);
-//        loginUser.setNickName(nickName);
-//        loginUser.setHeadImage(headImage);
-//        redisService.setCacheObject(tokenKey, loginUser);
-//    }
+    public void refreshLoginUser(String nickName, String headImage, String userKey) {
+        String tokenKey = getTokenKey(userKey);
+        LoginUser loginUser = redisService.getCacheObject(tokenKey, LoginUser.class);
+        loginUser.setNickName(nickName);
+        loginUser.setHeadImage(headImage);
+        redisService.setCacheObject(tokenKey, loginUser);
+    }
 
     private String getTokenKey(String userKey) {
         return CacheConstants.LOGIN_TOKEN_KEY + userKey;

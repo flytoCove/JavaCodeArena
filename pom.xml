@@ -36,8 +36,14 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <message.version>1.0-SNAPSHOT</message.version>
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
         <hutool-all.version>5.8.22</hutool-all.version>
+        <xxl-job.version>3.3.2</xxl-job.version>
+        <aliyun-sdk-oss.version>3.18.4</aliyun-sdk-oss.version>
+        <jaxb-api.version>2.3.1</jaxb-api.version>
+        <activation.version>1.1.1</activation.version>
+        <jaxb-runtime.version>2.3.3</jaxb-runtime.version>
         <springdoc-openapi.version>2.2.0</springdoc-openapi.version>
         <pagehelper.boot.version>2.0.0</pagehelper.boot.version>
+        <transmittable-thread-local.version>2.14.4</transmittable-thread-local.version>
     </properties>
     <dependencies>
         <!-- bootstrap 启动器 -->

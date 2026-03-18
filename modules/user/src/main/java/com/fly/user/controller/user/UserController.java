@@ -40,29 +40,29 @@ public class UserController extends BaseController {
         return R.ok(userService.codeLogin(userDTO.getPhone(), userDTO.getCode()));
     }
 
-//    @DeleteMapping("/logout")
-//    public R<Void> logout(@RequestHeader(HttpConstants.AUTHENTICATION) String token) {
-//        return toR(userService.logout(token));
-//    }
-//
-//    @GetMapping("/info")
-//    public R<LoginUserVO> info(@RequestHeader(HttpConstants.AUTHENTICATION) String token) {
-//        return userService.info(token);
-//    }
-//
-//    @GetMapping("/detail")
-//    public R<UserVO> detail() {
-//        return R.ok(userService.detail());
-//    }
-//
-//    @PutMapping("/edit")
-//    public R<Void> edit(@RequestBody UserUpdateDTO userUpdateDTO) {
-//        return toR(userService.edit(userUpdateDTO));
-//    }
-//
-//    @PutMapping("/head-image/update")
-//    public R<Void> updateHeadImage(@RequestBody UserUpdateDTO userUpdateDTO) {
-//        return toR(userService.updateHeadImage(userUpdateDTO.getHeadImage()));
-//    }
+    @DeleteMapping("/logout")
+    public R<Void> logout(@RequestHeader(HttpConstants.AUTHENTICATION) String token) {
+        return toR(userService.logout(token));
+    }
+
+    @GetMapping("/info")
+    public R<LoginUserVO> info(@RequestHeader(HttpConstants.AUTHENTICATION) String token) {
+        return userService.info(token);
+    }
+
+    @GetMapping("/detail")
+    public R<UserVO> detail() {
+        return R.ok(userService.detail());
+    }
+
+    @PutMapping("/edit")
+    public R<Void> edit(@RequestBody UserUpdateDTO userUpdateDTO) {
+        return toR(userService.edit(userUpdateDTO));
+    }
+
+    @PutMapping("/head-image/update")
+    public R<Void> updateHeadImage(@RequestBody UserUpdateDTO userUpdateDTO) {
+        return toR(userService.updateHeadImage(userUpdateDTO.getHeadImage()));
+    }
 }
 

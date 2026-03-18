@@ -154,7 +154,7 @@ create table tb_user_exam(
                              update_by    bigint unsigned  comment '更新人',
                              update_time  datetime comment '更新时间',
                              primary key(user_exam_id)
-)
+);
 
 select * from tb_user_exam where exam_id = 1  and  user_id = 100;
 

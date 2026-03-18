@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.fly.common.core.constants.Constants;
 import com.fly.common.core.constants.HttpConstants;
 //import com.fly.common.core.utils.ThreadLocalUtil;
+import com.fly.common.core.utils.ThreadLocalUtil;
 import com.fly.common.security.service.TokenService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,22 +31,21 @@ public class TokenInterceptor implements HandlerInterceptor {
         if (StrUtil.isEmpty(token)) {
             return true;
         }
-//        Claims claims = tokenService.getClaims(token, secret);
-//        Long userId = tokenService.getUserId(claims);
-//        String userKey = tokenService.getUserKey(claims);
-//        ThreadLocalUtil.set(Constants.USER_ID, userId);
-//        ThreadLocalUtil.set(Constants.USER_KEY, userKey);
-//        tokenService.extendToken(claims);
+        Claims claims = tokenService.getClaims(token, secret);
+        Long userId = tokenService.getUserId(claims);
+        String userKey = tokenService.getUserKey(claims);
+        ThreadLocalUtil.set(Constants.USER_ID, userId);
+        ThreadLocalUtil.set(Constants.USER_KEY, userKey);
 
-        tokenService.extendToken(token,secret);
+        tokenService.extendToken(claims);
         return true;
     }
 
-//    @Override
-//    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-//            throws Exception {
-//        ThreadLocalUtil.remove();
-//    }
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+            throws Exception {
+        ThreadLocalUtil.remove();
+    }
 
 
     private String getToken(HttpServletRequest request) {
