@@ -13,9 +13,9 @@ import com.fly.user.domain.question.es.QuestionES;
 import com.fly.user.domain.question.vo.QuestionDetailVO;
 import com.fly.user.domain.question.vo.QuestionVO;
 import com.fly.user.elasticsearch.QuestionRepository;
-//import com.fly.user.manager.QuestionCacheManager;
+import com.fly.user.manager.QuestionCacheManager;
 import com.fly.user.mapper.question.QuestionMapper;
-//import com.fly.user.mapper.user.UserSubmitMapper;
+import com.fly.user.mapper.user.UserSubmitMapper;
 import com.fly.user.service.question.IQuestionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -42,11 +42,11 @@ public class QuestionServiceImpl implements IQuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-//    @Autowired
-//    private UserSubmitMapper userSubmitMapper;
-//
-//    @Autowired
-//    private QuestionCacheManager questionCacheManager;
+    @Autowired
+    private UserSubmitMapper userSubmitMapper;
+
+    @Autowired
+    private QuestionCacheManager questionCacheManager;
 
     @Override
     public TableDataInfo list(QuestionQueryDTO questionQueryDTO) {
@@ -77,20 +77,20 @@ public class QuestionServiceImpl implements IQuestionService {
         return TableDataInfo.success(questionVOList, total);
     }
 
-//    @Override
-//    public List<QuestionVO> hotList() {
-//        Long total = questionCacheManager.getHostListSize();
-//        List<Long> hotQuestionIdList;
-//        if (total == null || total <= 0) {
-//            PageHelper.startPage(Constants.HOST_QUESTION_LIST_START, Constants.HOST_QUESTION_LIST_END);
-//            hotQuestionIdList = userSubmitMapper.selectHostQuestionList();
-//            questionCacheManager.refreshHotQuestionList(hotQuestionIdList);
-//        } else {
-//            hotQuestionIdList = questionCacheManager.getHostList();
-//        }
-//        return assembleQuestionVOList(hotQuestionIdList);
-//    }
-//
+    @Override
+    public List<QuestionVO> hotList() {
+        Long total = questionCacheManager.getHostListSize();
+        List<Long> hotQuestionIdList;
+        if (total == null || total <= 0) {
+            PageHelper.startPage(Constants.HOST_QUESTION_LIST_START, Constants.HOST_QUESTION_LIST_END);
+            hotQuestionIdList = userSubmitMapper.selectHostQuestionList();
+            questionCacheManager.refreshHotQuestionList(hotQuestionIdList);
+        } else {
+            hotQuestionIdList = questionCacheManager.getHostList();
+        }
+        return assembleQuestionVOList(hotQuestionIdList);
+    }
+
     @Override
     public QuestionDetailVO detail(Long questionId) {
         QuestionES questionES = questionRepository.findById(questionId).orElse(null);
@@ -108,23 +108,23 @@ public class QuestionServiceImpl implements IQuestionService {
         return questionDetailVO;
     }
 
-//    @Override
-//    public String preQuestion(Long questionId) {
-//        Long listSize = questionCacheManager.getListSize();
-//        if (listSize == null || listSize <= 0) {
-//            questionCacheManager.refreshCache();
-//        }
-//        return questionCacheManager.preQuestion(questionId).toString();
-//    }
-//
-//    @Override
-//    public String nextQuestion(Long questionId) {
-//        Long listSize = questionCacheManager.getListSize();
-//        if (listSize == null || listSize <= 0) {
-//            questionCacheManager.refreshCache();
-//        }
-//        return questionCacheManager.nextQuestion(questionId).toString();
-//    }
+    @Override
+    public String preQuestion(Long questionId) {
+        Long listSize = questionCacheManager.getListSize();
+        if (listSize == null || listSize <= 0) {
+            questionCacheManager.refreshCache();
+        }
+        return questionCacheManager.preQuestion(questionId).toString();
+    }
+
+    @Override
+    public String nextQuestion(Long questionId) {
+        Long listSize = questionCacheManager.getListSize();
+        if (listSize == null || listSize <= 0) {
+            questionCacheManager.refreshCache();
+        }
+        return questionCacheManager.nextQuestion(questionId).toString();
+    }
 
     private void refreshQuestion() {
         List<Question> questionList = questionMapper.selectList(new LambdaQueryWrapper<Question>());

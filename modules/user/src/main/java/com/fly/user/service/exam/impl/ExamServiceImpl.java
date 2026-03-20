@@ -84,23 +84,23 @@ public class ExamServiceImpl implements IExamService {
 //        return TableDataInfo.success(examRankVOList, total);
 //    }
 //
-//    @Override
-//    public String getFirstQuestion(Long examId) {
-//        checkAndRefresh(examId);
-//        return examCacheManager.getFirstQuestion(examId).toString();
-//    }
-//
-//    @Override
-//    public String preQuestion(Long examId, Long questionId) {
-//        checkAndRefresh(examId);
-//        return examCacheManager.preQuestion(examId, questionId).toString();
-//    }
-//
-//    @Override
-//    public String nextQuestion(Long examId, Long questionId) {
-//        checkAndRefresh(examId);
-//        return examCacheManager.nextQuestion(examId, questionId).toString();
-//    }
+    @Override
+    public String getFirstQuestion(Long examId) {
+        checkAndRefresh(examId);
+        return examCacheManager.getFirstQuestion(examId).toString();
+    }
+
+    @Override
+    public String preQuestion(Long examId, Long questionId) {
+        checkAndRefresh(examId);
+        return examCacheManager.preQuestion(examId, questionId).toString();
+    }
+
+    @Override
+    public String nextQuestion(Long examId, Long questionId) {
+        checkAndRefresh(examId);
+        return examCacheManager.nextQuestion(examId, questionId).toString();
+    }
 
     private void assembleExamVOList(List<ExamVO> examVOList) {
         Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
@@ -126,11 +126,11 @@ public class ExamServiceImpl implements IExamService {
 //        }
 //    }
 
-//    private void checkAndRefresh(Long examId) {
-//        Long listSize = examCacheManager.getExamQuestionListSize(examId);
-//        if (listSize == null || listSize <= 0) {
-//            examCacheManager.refreshExamQuestionCache(examId);
-//        }
-//    }
+    private void checkAndRefresh(Long examId) {
+        Long listSize = examCacheManager.getExamQuestionListSize(examId);
+        if (listSize == null || listSize <= 0) {
+            examCacheManager.refreshExamQuestionCache(examId);
+        }
+    }
 }
 

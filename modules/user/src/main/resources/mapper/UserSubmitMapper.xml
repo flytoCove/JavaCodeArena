@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.user.mapper.user.UserSubmitMapper">
+    <select id="selectCurrentUserSubmit" resultType="com.fly.user.domain.user.UserSubmit">
+        SELECT
+        submit_id,
+        pass,
+        exe_message,
+        case_judge_res
+        FROM
+        tb_user_submit
+        <where>
+            <if test="questionId != null">
+                AND question_id = #{questionId}
+            </if>
+            <if test="examId !=null ">
+                AND exam_id = #{examId}
+            </if>
+            <if test="examId == null ">
+                AND exam_id is null
+            </if>
+            <if test="userId !=null ">
+                AND user_id = #{userId}
+            </if>
+            <if test="currentTime !=null and currentTime !='' ">
+                AND (create_time &gt;= #{currentTime} or update_time &gt;= #{currentTime})
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectHostQuestionList" resultType="java.lang.Long">
+        SELECT
+        ts.question_id,
+        count(ts.question_id) hot_count
+    FROM
+        tb_user_submit ts
+    INNER JOIN
+        tb_question tq ON ts.question_id = tq.question_id
+    WHERE
+        ts.exam_id is null
+    GROUP BY
+        ts.question_id
+    ORDER BY
+        hot_count DESC
+    </select>
+</mapper>

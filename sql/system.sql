@@ -183,7 +183,7 @@ create table tb_user_submit(
                                update_by    bigint unsigned  comment '更新人',
                                update_time  datetime comment '更新时间',
                                primary key(`submit_id`)
-)
+);
 
 
 

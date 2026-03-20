@@ -14,11 +14,11 @@ public interface IExamService {
     TableDataInfo redisList(ExamQueryDTO examQueryDTO);
 //
 //    TableDataInfo rankList(ExamRankDTO examRankDTO);
-//
-//    String getFirstQuestion(Long examId);
-//
-//    String preQuestion(Long examId, Long questionId);
-//
-//    String nextQuestion(Long examId, Long questionId);
+
+    String getFirstQuestion(Long examId);
+
+    String preQuestion(Long examId, Long questionId);
+
+    String nextQuestion(Long examId, Long questionId);
 }
 

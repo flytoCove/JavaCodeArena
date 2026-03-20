@@ -19,6 +19,7 @@
         <module>mybatis</module>
         <module>message</module>
         <module>file</module>
+        <module>rabbitmq</module>
     </modules>
 
     <properties>

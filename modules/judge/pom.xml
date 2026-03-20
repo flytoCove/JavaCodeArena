@@ -11,6 +11,38 @@
 
     <artifactId>judge</artifactId>
 
+    <dependencies>
+
+        <!-- 补充 Apple Silicon (M1/M2/M3) 所需的 Netty kqueue 原生库 -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-kqueue</artifactId>
+            <version>4.1.86.Final</version>
+            <classifier>osx-aarch_64</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fly</groupId>
+            <artifactId>api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.docker-java</groupId>
+            <artifactId>docker-java</artifactId>
+            <version>3.3.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fly</groupId>
+            <artifactId>rabbitmq</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>

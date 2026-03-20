@@ -11,12 +11,12 @@ public interface IQuestionService {
 
     TableDataInfo list(QuestionQueryDTO questionQueryDTO);
 
-//    List<QuestionVO> hotList();
+    List<QuestionVO> hotList();
 //
     QuestionDetailVO detail(Long questionId);
-//
-//    String preQuestion(Long questionId);
-//
-//    String nextQuestion(Long questionId);
+
+    String preQuestion(Long questionId);
+
+    String nextQuestion(Long questionId);
 }
 

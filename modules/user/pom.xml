@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>friend</artifactId>
+    <artifactId>user</artifactId>
 
     <dependencies>
         <dependency>
@@ -36,6 +36,18 @@
         <dependency>
             <groupId>com.fly</groupId>
             <artifactId>file</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fly</groupId>
+            <artifactId>api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fly</groupId>
+            <artifactId>rabbitmq</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

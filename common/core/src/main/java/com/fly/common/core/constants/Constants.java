@@ -15,7 +15,7 @@ public class Constants {
 
     public static final String USER_KEY = "user_key";
 
-    public static final String JUDGE_SERVICE = "oj-judge";
+    public static final String JUDGE_SERVICE = "judge";
 
     public static final String UNDERLINE_SEPARATOR = "_";
 
